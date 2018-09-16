@@ -4,10 +4,11 @@ terragrunt = {
     backend = "s3"
     config {
       encrypt        = true
-      bucket         = "terragrunt-ccm-state"
+      bucket         = "terraform-ccm-state"
       key            = "ccm/${path_relative_to_include()}/terraform.tfstate"
-      region         = "us-west-2"
+      region         = "us-east-1"
       profile        = "ccm"
+      dynamodb_table = "terraform-ccm-state"
     }
   }
 
