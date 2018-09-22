@@ -1,6 +1,6 @@
 # Created by https://www.gitignore.io/api/ansible
 
 ### Ansible ###
-*.retry
-roles/*.*
+ansible/*.retry
+ansible/roles/*.*
 # End of https://www.gitignore.io/api/ansible
