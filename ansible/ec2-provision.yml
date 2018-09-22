@@ -1,0 +1,38 @@
+---
+- name: Provision an EC2 server
+  hosts: localhost
+  connection: local
+
+  vars:
+    # Name of the VPC to provision the server into
+    aws_ec2_vpc: ccm-vpc
+
+    # Path to the public keypair to use
+    aws_ec2_keypair: '~/.ssh/aws-educate-student.pub'
+
+    # Instance provision details
+    aws_ec2_placement:
+      - count: 1
+        size: t2.micro
+        az: us-east-1a
+        tags:
+          Name: 'bastion-1a'
+
+      - count: 2
+        size: t2.micro
+        az: us-east-1b
+        subnet:
+          'tag:Tier': public
+        tags:
+          Name: 'bastion-1b'
+
+      - count: 1
+        size: t2.micro
+        az: us-east-1c
+        subnet:
+          'tag:Tier': private
+        tags:
+          Name: 'bastion-1c'
+
+  roles:
+     - role: Lowess.ec2
