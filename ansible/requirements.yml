@@ -1,0 +1,5 @@
+- src: Lowess.ec2
+  version: master
+
+- src: Lowess.common
+  version: master
