@@ -1,0 +1,17 @@
+---
+
+- name: AWS 360 API
+  hosts: all
+  become: true
+  roles:
+    - role: Lowess.common
+      tags: common
+
+    - role: Lowess.nginx
+      tags: nginx
+
+    - role: Lowess.uwsgi
+      tags: uwsgi
+
+    - role: Lowess.aws_360_api
+      tags: api

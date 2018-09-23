@@ -15,24 +15,44 @@
       - count: 1
         size: t2.micro
         az: us-east-1a
+        groups: ['ops', 'webservers']
         tags:
-          Name: 'bastion-1a'
+          Name: 'flask-api-1a'
 
-      - count: 2
+      - count: 0
         size: t2.micro
         az: us-east-1b
+        groups: ['ops', 'web']
         subnet:
           'tag:Tier': public
         tags:
           Name: 'bastion-1b'
 
-      - count: 1
+      - count: 0
         size: t2.micro
         az: us-east-1c
+        groups: ['ops', 'web']
         subnet:
           'tag:Tier': private
         tags:
           Name: 'bastion-1c'
+
+    aws_ec2_groups:
+      ops:
+        description: SSH access to instances
+        rules:
+          - proto: tcp
+            from_port: 22
+            to_port: 22
+            cidr_ip: 0.0.0.0/0
+
+      webservers:
+        description: Webservers security group
+        rules:
+          - proto: tcp
+            from_port: 8080
+            to_port: 8080
+            cidr_ip: 0.0.0.0/0
 
   roles:
      - role: Lowess.ec2
