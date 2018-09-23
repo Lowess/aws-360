@@ -4,5 +4,4 @@
 ansible/*.retry
 ansible/roles/*.*
 !ansible/roles/.gitkeep
-ansible/hosts
 # End of https://www.gitignore.io/api/ansible
