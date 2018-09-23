@@ -3,3 +3,12 @@
 
 - src: Lowess.common
   version: master
+
+- src: Lowess.nginx
+  version: master
+
+- src: Lowess.uwsgi
+  version: master
+
+- src: Lowess.aws_360_api
+  version: master
