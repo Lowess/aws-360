@@ -4,6 +4,9 @@
 - src: Lowess.common
   version: master
 
+- src: Lowess.netdata
+  version: master
+
 - src: Lowess.nginx
   version: master
 

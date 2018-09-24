@@ -7,6 +7,9 @@
     - role: Lowess.common
       tags: common
 
+    - role: Lowess.netdata
+      tags: netdata
+
     - role: Lowess.nginx
       tags: nginx
 

@@ -45,6 +45,14 @@
             from_port: 22
             to_port: 22
             cidr_ip: 0.0.0.0/0
+            rule_desc: Allow SSH access from outside
+
+          # Monitoring
+          - proto: tcp
+            from_port: 19999
+            to_port: 19999
+            cidr_ip: 0.0.0.0/0
+            rule_desc: Netdata monitoring access from outside
 
       webservers:
         description: Webservers security group
@@ -53,6 +61,7 @@
             from_port: 8080
             to_port: 8080
             cidr_ip: 0.0.0.0/0
+            rule_desc: API access from outside
 
   roles:
      - role: Lowess.ec2
