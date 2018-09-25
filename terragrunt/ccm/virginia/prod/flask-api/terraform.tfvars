@@ -9,9 +9,13 @@ terragrunt = {
   }
 }
 
+### Set AWS profile for provider
+aws_profile = "ccm"
+
+### Feed the discovery module
 vpc_name = "ccm"
 
-app_name = "flask-api"
-app_count = 1
-
+### Define autoscaling application details
 app_key_name = "aws-educate-student"
+app_name = "flask-api"
+app_count = 3
