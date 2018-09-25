@@ -7,7 +7,6 @@ terragrunt = {
       bucket         = "terraform-ccm-state"
       key            = "ccm/${path_relative_to_include()}/terraform.tfstate"
       region         = "us-east-1"
-      profile        = "ccm"
       dynamodb_table = "terraform-ccm-state"
     }
   }
