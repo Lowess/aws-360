@@ -1,0 +1,32 @@
+---
+
+- name: AWS 360 API Autoscaling
+  hosts: localhost
+  connection: local
+
+  vars:
+
+    autoscaling_metric_sample: 10
+
+  tasks:
+    - name: Check CPU usage
+      uri:
+        url: "http://{{ item }}:19999/api/v1/data?chart=system.cpu&after=-{{ autoscaling_metric_sample }}&format=json&options=nonzero"
+        return_content: yes
+        body_format: json
+      register: __netdata_metrics
+      with_inventory_hostnames:
+        - security_group_flask-api
+
+    - name: Show netdata metrics
+      debug:
+        msg: "{{ __netdata_metrics.results | map(attribute='json') | map(attribute='data') | list }}"
+
+    - name: Register netdata metrics
+      set_fact:
+        __netdata_cpu_metrics: "{{ __netdata_metrics.results | map(attribute='json') | map(attribute='data') | list }}"
+
+    - name: Compute CPU average for each server
+      debug:
+        msg: "{{ item }}"
+      with_items: "{{ __netdata_cpu_metrics }}"

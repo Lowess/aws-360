@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+
+# Check arguments
+if [ $#  -ne 1 ]; then
+  echo "Please provide an endpoint to stress (ALB / EC2 instance ip)"
+  exit 1
+fi
+# Max out ulimits for files and procs
+ulimit -n 1024000
+ulimit -u 1024000
+
+# Add vegeta to PATH
+PATH=/opt/vegeta:${PATH}
+
+ALB_DNS=$1
+ALB_ENDPOINT="/badge?name=vegeta&percent=25"
+
+VEGETA_STAGE_DURATION="5m"
+VEGETA_WORKERS="10" # default value 10
+VEGETA_START_RATE=1000
+
+echo "Step - 1 - Pre-warming ALB..."
+
+echo "GET http://${ALB_DNS}/${ALB_ENDPOINT}" \
+  | vegeta attack -duration=${VEGETA_STAGE_DURATION} -rate=${VEGETA_START_RATE} -timeout=30s \
+  | tee results.bin \
+  | vegeta report
+
+
+echo "Step - 2 - Moving on to serious stuff..."
+
+echo "GET http://${ALB_DNS}/${ALB_ENDPOINT}" \
+  | vegeta attack -duration=${VEGETA_STAGE_DURATION} -rate=$(( ${VEGETA_START_RATE} * 2)) -timeout=30s \
+  | tee results.bin \
+  | vegeta report
+
+
+echo "Step - 3 - You want more ?"
+
+echo "GET http://${ALB_DNS}/${ALB_ENDPOINT}" \
+  | vegeta attack -duration=${VEGETA_STAGE_DURATION} -rate=$(( ${VEGETA_START_RATE} * 4)) -timeout=30s \
+  | tee results.bin \
+  | vegeta report
+
+
+echo "Step - 4 - You'are gonna feel it!"
+
+echo "GET http://${ALB_DNS}/${ALB_ENDPOINT}" \
+  | vegeta attack -duration=${VEGETA_STAGE_DURATION} -rate=$(( ${VEGETA_START_RATE} * 8)) -timeout=30s \
+  | tee results.bin \
+  | vegeta report
+

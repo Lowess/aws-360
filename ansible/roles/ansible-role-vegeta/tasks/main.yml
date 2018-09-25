@@ -1,0 +1,25 @@
+---
+# tasks file for ansible-role-vegeta
+
+- name: Make Vegeta folder
+  file:
+    state: directory
+    path: "{{ vegeta_root_folder }}"
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Install Vegeta
+  unarchive:
+    src: "https://github.com/tsenart/vegeta/releases/download/cli%2Fv{{ vegeta_version }}/vegeta-{{ vegeta_version }}-linux-amd64.tar.gz"
+    dest: "{{ vegeta_root_folder }}"
+    remote_src: true
+
+- name: Deploy Vegeta stressor script
+  template:
+    src: vegeta-stressor.sh.j2
+    dest: /opt/vegeta/vegeta-stressor.sh
+    mode: '0755'
+    owner: root
+    group: root
+

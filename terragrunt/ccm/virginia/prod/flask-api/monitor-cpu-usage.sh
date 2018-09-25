@@ -1,1 +1,10 @@
-curl -s "http://ec2-54-144-55-41.compute-1.amazonaws.com:19999/api/v1/data?chart=system.cpu&after=-10&format=json&options=nonzero" | jq "[ .data[] | nth(2)] | add / length";
+#!/usr/bin/env bash
+
+# source the metrics
+eval "$(curl -s $1:19999/api/v1/allmetrics)"
+
+# let's see if there are variables exposed by netdata for system.cpu
+set | grep "^NETDATA_SYSTEM_CPU_VISIBLETOTAL"
+
+# let's see the total cpu utilization of the system
+echo "${NETDATA_SYSTEM_CPU_VISIBLETOTAL}"

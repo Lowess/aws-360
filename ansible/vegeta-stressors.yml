@@ -1,0 +1,46 @@
+---
+- name: Provision an Vegeta Stressors Servers
+  hosts: localhost
+  connection: local
+
+  vars:
+    # Name of the VPC to provision the server into
+    aws_ec2_vpc: ccm-vpc
+
+    # Path to the public keypair to use
+    aws_ec2_keypair: '~/.ssh/aws-educate-student.pub'
+
+    # aws_ec2_ami_prefix: ''
+    # Instance provision details
+    aws_ec2_placement:
+      - count: 1
+        size: c5.xlarge
+        az: us-east-1a
+        groups: ['ops', 'vegeta']
+        tags:
+          Name: 'vegeta-1a'
+
+    aws_ec2_groups:
+      vegeta:
+        description: Vegeta load testing security group
+        rules: []
+
+  roles:
+     - role: Lowess.ec2
+
+
+- name: Refresh inventory
+  hosts: localhost
+  connection: local
+
+  tasks:
+    - name: Refresh inventory
+      meta: refresh_inventory
+
+- name: Setup vegeta
+  hosts: tag_Name_vegeta-1a
+  become: true
+
+  roles:
+    - role: ansible-role-vegeta
+      tags: vegeta

@@ -15,3 +15,6 @@
 
 - src: Lowess.aws_360_api
   version: master
+
+- src: Lowess.docker
+  version: master
