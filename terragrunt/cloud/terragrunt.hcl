@@ -14,10 +14,7 @@ locals {
   # Extract the variables we need for easy access
   aws_region      = local.region_vars.locals.aws_region
   aws_region_name = local.region_vars.locals.aws_region_name
-<<<<<<< HEAD
-=======
   aws_profile     = "edu"
->>>>>>> 269a988... Move to terraform 0.12 and move to terragrunt latest
 
   # S3 state configuration
   remote_state_bucket        = "terragrunt-aws-360-${local.aws_region}"
@@ -33,10 +30,7 @@ remote_state {
     key            = "${local.remote_state_bucket_prefix}"
     region         = local.aws_region
     dynamodb_table = "${local.remote_state_bucket}-locks"
-<<<<<<< HEAD
-=======
     profile        = local.aws_profile
->>>>>>> 269a988... Move to terraform 0.12 and move to terragrunt latest
   }
 
   generate = {
@@ -77,12 +71,8 @@ terraform {
 inputs = merge(
   {
     "remote_state_bucket" : local.remote_state_bucket,
-<<<<<<< HEAD
-    "remote_state_bucket_prefix" : local.remote_state_bucket_prefix
-=======
     "remote_state_bucket_prefix" : local.remote_state_bucket_prefix,
     "aws_profile": local.aws_profile
->>>>>>> 269a988... Move to terraform 0.12 and move to terragrunt latest
   },
   local.region_vars.locals,
   local.environment_vars.locals,
