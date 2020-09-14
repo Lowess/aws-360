@@ -1,11 +1,24 @@
 ---
+
+- name: Pre-step
+  hosts: all
+  become: true
+  gather_facts: no
+  pre_tasks:
+    - name: Install Python 2
+      raw: bash -c "test -e /usr/bin/python || (apt -qqy update && apt install -qqy python-minimal)"
+      register: __python2_requirement
+      changed_when: __python2_requirement.stdout != ""
+      tags:
+        - always
+
 - name: Provision an Vegeta Stressors Servers
   hosts: localhost
   connection: local
 
   vars:
     # Name of the VPC to provision the server into
-    aws_ec2_vpc: ccm-vpc
+    aws_ec2_vpc: my-cloud-vpc
 
     # Path to the public keypair to use
     aws_ec2_keypair: '~/.ssh/aws-educate-student.pub'

@@ -5,7 +5,7 @@
 
   vars:
     # Name of the VPC to provision the server into
-    aws_ec2_vpc: ccm-vpc
+    aws_ec2_vpc: my-cloud-vpc
 
     # Path to the public keypair to use
     aws_ec2_keypair: '~/.ssh/aws-educate-student.pub'
@@ -17,23 +17,23 @@
         az: us-east-1a
         groups: ['ops', 'webservers']
         tags:
-          Name: 'flask-api-1a'
+          Name: 'web-1a'
 
       - count: 0
         size: t2.micro
         az: us-east-1b
-        groups: ['ops', 'web']
+        groups: ['ops', 'webservers']
         subnet:
           'tag:Tier': public
         tags:
-          Name: 'bastion-1b'
+          Name: 'react-1b'
 
       - count: 0
         size: t2.micro
         az: us-east-1c
-        groups: ['ops', 'web']
+        groups: ['ops', 'webservers']
         subnet:
-          'tag:Tier': private
+          'tag:Tier': public
         tags:
           Name: 'bastion-1c'
 
@@ -63,5 +63,10 @@
             cidr_ip: 0.0.0.0/0
             rule_desc: API access from outside
 
+          - proto: tcp
+            from_port: 80
+            to_port: 80
+            cidr_ip: 0.0.0.0/0
+            rule_desc: Web access from outside
   roles:
      - role: Lowess.ec2

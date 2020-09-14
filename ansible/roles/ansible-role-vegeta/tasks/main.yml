@@ -11,7 +11,7 @@
 
 - name: Install Vegeta
   unarchive:
-    src: "https://github.com/tsenart/vegeta/releases/download/cli%2Fv{{ vegeta_version }}/vegeta-{{ vegeta_version }}-linux-amd64.tar.gz"
+    src: "https://github.com/tsenart/vegeta/releases/download/v{{ vegeta_version }}/vegeta-{{ vegeta_version }}-linux-amd64.tar.gz"
     dest: "{{ vegeta_root_folder }}"
     remote_src: true
 

@@ -1,6 +1,6 @@
 ---
 # defaults file for ansible-role-vegeta
 
-vegeta_version: 11.3.0
+vegeta_version: 12.7.0
 
 vegeta_root_folder: /opt/vegeta
