@@ -4,6 +4,13 @@
 
 [Terragrunt](https://github.com/gruntwork-io/terragrunt) configurations which implements Terraform moduels can be found the `./terragrunt` folder
 
+```sh
+> terragrunt --version
+terragrunt version v0.32.1
+
+> terraform --version
+Terraform v1.0.6
+```
 
 ## Ansible
 

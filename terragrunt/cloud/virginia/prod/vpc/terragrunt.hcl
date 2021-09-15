@@ -11,14 +11,14 @@ locals {
   # Extract out common variables for reuse
   env = local.environment_vars.locals.environment
 
-  github_user = "Lowess"
+  github_user    = "Lowess"
   github_version = "stable"
 }
 
 # Terragrunt will copy the Terraform configurations specified by the source parameter, along with any files in the
 # working directory, into a temporary folder, and execute your Terraform commands in that folder.
 terraform {
-  source = "github.com/${local.github_user}/terraform-aws-vpc.git//?ref=${local.github_version}"
+  source = "github.com/${local.github_user}/terraform-aws-vpc//?ref=${local.github_version}"
 }
 
 # Include all settings from the root terragrunt.hcl file

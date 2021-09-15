@@ -53,10 +53,6 @@ terraform {
       "taint",
       "untaint"
     ]
-
-    arguments = [
-      "-lock-timeout=20m"
-    ]
   }
 }
 
@@ -72,7 +68,7 @@ inputs = merge(
   {
     "remote_state_bucket" : local.remote_state_bucket,
     "remote_state_bucket_prefix" : local.remote_state_bucket_prefix,
-    "aws_profile": local.aws_profile
+    "aws_profile" : local.aws_profile
   },
   local.region_vars.locals,
   local.environment_vars.locals,
